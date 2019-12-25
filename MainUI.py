@@ -15,7 +15,7 @@ from copy import copy, deepcopy
 '''The main window controlling all the frames.'''
 class MainUI(Tk):
 
-    def __init__(self):
+    def __init__(self, modeltype):
         Tk.__init__(self)
         self.resizable(width=False, height=False)
         # Create the folders if they don't already exist
@@ -25,6 +25,8 @@ class MainUI(Tk):
             os.makedirs("BoardCells")
         except:
             pass
+        # Modeltype CNN or KNN
+        self.modeltype = modeltype
         # Variables for the Sudoku Board and Solution respectively
         self.board = None
         self.solutiongrid = None
@@ -57,7 +59,7 @@ class MainUI(Tk):
         self.boardextractor.preprocess_image()
         self.boardextractor.detect_and_crop_grid()
         boardcells = self.boardextractor.create_image_grid()
-        self.recognizeandconstructobj = ConstructGrid(boardcells)
+        self.recognizeandconstructobj = ConstructGrid(boardcells, self.modeltype)
         board = self.recognizeandconstructobj.constructgrid()
         self.board = deepcopy(board)
         self.sudokugameobj = SudokuGame(self.board)
