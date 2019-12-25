@@ -11,9 +11,9 @@ import os
 
 class ConstructGrid:
 
-    def __init__(self, cellarray):
+    def __init__(self, cellarray, modeltype):
         self.cellarray = cellarray
-        self.recognizer = DigitRecognizer("KNN")
+        self.recognizer = DigitRecognizer(modeltype)
         self.finalgrid = [[0 for i in range(9)] for j in range(9)]
         self.imagewritten = False
 
