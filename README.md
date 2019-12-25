@@ -133,7 +133,7 @@ Read about CNNs [here](https://towardsdatascience.com/a-comprehensive-guide-to-c
 * **Compilation** *Adam* optimizer and *sparse categorical cross entropy* loss.
 * **Training** The model is trained on the **MNIST** handwritten digits dataset which has around 70,000 28X28 images.
 * **Accuracy** Around 98 percent accuracy on the test set.
-### K Nearest Neighbours
+#### K Nearest Neighbours
 Read about KNN [here](https://towardsdatascience.com/machine-learning-basics-with-the-k-nearest-neighbors-algorithm-6a6e71d01761)
 * **K** value used is 3.
 * **Training** Trained on the **MNIST** handwritten digits dataset which has around 70,000 28X28 images.
