@@ -5,7 +5,7 @@ from KNN import KNN
 import os
 # Change the model type variable value to "CNN" to use the Convolutional Neural Network
 # Change the model type variable value to "KNN" to use the K Nearest Neighbours Classifier
-modeltype = "KNN"
+modeltype = "CNN"
 # Checking if the KNN or CNN file is present
 # If not present, then generate the required file
 if modeltype == "KNN":

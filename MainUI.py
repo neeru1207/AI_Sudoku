@@ -75,11 +75,15 @@ class MainUI(Tk):
         self.solutiongrid = None
         solverobj = Solver()
         tmp = deepcopy(self.board)
+        if not solverobj.checkvalidpuzzle(tmp):
+            messagebox.showerror("Invalid Puzzle", "The puzzle board is invalid, please rectify the wrong entries and try again")
+            return False
         if not solverobj.solve_sudoku(tmp):
-            messagebox.showerror("Wrong Sudoku!" "This puzzle has no solution")
+            messagebox.showerror("No Solution!", "This puzzle has no solution")
             self.show_frame(SudokuUI)
         else:
             self.solutiongrid = deepcopy(tmp)
+        return True
 
     '''This function shows a particular frame by raising it'''
     def show_frame(self, cont):
@@ -450,7 +454,9 @@ class SudokuUI(Frame):
      the solution grid and disables the reveal solution button'''
     def reveal_solution(self):
         self.__draw_grid()
-        self.controller.getsolngrid()
+        tmpbool = self.controller.getsolngrid()
+        if not tmpbool:
+            return
         self.draw_soln_puzzle(self.game.puzzle, self.controller.solutiongrid)
         self.solutionrevealed = True
         self.toplabel['text'] = "Solution Revealed!"

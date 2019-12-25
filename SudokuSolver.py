@@ -1,4 +1,29 @@
 class Solver:
+    def checkvalidpuzzle(self, arr):
+        subsquarestartingpoints = [[0, 0], [0, 3], [0, 6], [3, 0], [3, 3], [3, 6], [6, 0], [6, 3], [6, 6]]
+        # Checking row validity of every row
+        for row in range(9):
+            has = set()
+            for col in range(9):
+                if arr[row][col] in has:
+                    return False
+                has.add(arr[row][col])
+        # Checking column validity of every column
+        for col in range(9):
+            has = set()
+            for row in range(9):
+                if arr[row][col] in has:
+                    return False
+                has.add(arr[row][col])
+        # Checking box validity
+        for pointrow, pointcol in subsquarestartingpoints:
+            has = set()
+            for row in range(3):
+                for col in range(3):
+                    if arr[pointrow+row][pointcol+col] in has:
+                        return False
+                    has.add(arr[pointrow+row][pointrow+col])
+        return True
 
     def find_empty_location(self, arr, l):
         for row in range(9):
