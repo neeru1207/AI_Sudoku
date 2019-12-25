@@ -1,6 +1,9 @@
 # AI_Sudoku
+
 GUI Smart Sudoku Solver that tries to extract a sudoku puzzle from a photo and solve it.
+
 ## Table Of Contents:
+
 [Installation](https://github.com/neeru1207/AI_Sudoku/blob/master/README.md#installation)
 
 [Usage](https://github.com/neeru1207/AI_Sudoku/blob/master/README.md#usage)
@@ -15,6 +18,7 @@ GUI Smart Sudoku Solver that tries to extract a sudoku puzzle from a photo and s
 [Contributing](https://github.com/neeru1207/AI_Sudoku/blob/master/README.md#contributing)
 
 ## Installation
+
 1. Download and install Python3 from [here](https://www.python.org/downloads/)
 2. I recommend using [virtualenv](https://virtualenv.pypa.io/en/latest/). Download virtualenv by opening a terminal and typing:
     ```bash
@@ -39,9 +43,9 @@ GUI Smart Sudoku Solver that tries to extract a sudoku puzzle from a photo and s
     cd A:\AI_Sudoku-master
     ```
 5. Install the required packages by typing:
-```bash
-pip install -r requirements.txt
-```
+   ```bash
+   pip install -r requirements.txt
+   ```
 ## Usage
 * Before running the application, know that you can set the **modeltype** variable in **Run.py** to either "CNN" or "KNN" to choose the Convolutional Neural Network or the K Nearest Neighbours Algorithm for Recognition. By default it is set to "KNN" and I got a way higher accuracy using KNN itself, so I would recommend that you don't change it.
     ```Python
@@ -81,7 +85,9 @@ pip install -r requirements.txt
     ![](https://github.com/neeru1207/AI_Sudoku/blob/master/Screenshots/19.png)
 
 ## Working
+
 ### Image Preprocessing
+
 * **Gaussian Blurring** Blurring using a Gaussian function. This is to reduce noise and detail.
 
     ![](https://github.com/neeru1207/AI_Sudoku/blob/master/Screenshots/4.png)
@@ -141,29 +147,41 @@ pip install -r requirements.txt
     ![](https://github.com/neeru1207/AI_Sudoku/blob/master/Screenshots/17.png)
 
 ### Recognition
+
 #### Convolutional Neural Network
+
 Read about CNNs [here](https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53)
-    * **Layers** A Convolution Layer, a Max Pooling layer flattened into a hidden layer followed by some Dropout Regularization, another hidden layer and finally the output layer. Each of the inner layer uses *ReLu* while the output layer uses *softmax*.
-    * **Compilation** *Adam* optimizer and *sparse categorical cross entropy* loss.
-    * **Training** The model is trained on the **MNIST** handwritten digits dataset which has around 70,000 28X28 images.
-    * **Accuracy** Around 98 percent accuracy on the test set.
+* **Layers** A Convolution Layer, a Max Pooling layer flattened into a hidden layer followed by some Dropout Regularization, another hidden layer and finally the output layer. Each of the inner layer uses *ReLu* while the output layer uses *softmax*.
+* **Compilation** *Adam* optimizer and *sparse categorical cross entropy* loss.
+* **Training** The model is trained on the **MNIST** handwritten digits dataset which has around 70,000 28X28 images.
+* **Accuracy** Around 98 percent accuracy on the test set.
+
 #### K Nearest Neighbours
+
 Read about KNN [here](https://towardsdatascience.com/machine-learning-basics-with-the-k-nearest-neighbors-algorithm-6a6e71d01761)
-    * **K** value used is 3.
-    * **Training** Trained on the **MNIST** handwritten digits dataset which has around 70,000 28X28 images.
-    * **Accuracy** Around 97 percent accuracy on the test set.
+* **K** value used is 3.
+* **Training** Trained on the **MNIST** handwritten digits dataset which has around 70,000 28X28 images.
+* **Accuracy** Around 97 percent accuracy on the test set.
+    
 ## ToDo
+
 * Improve Accuracy.
 * Resolve Bugs/Issues if any found.
 * Optimize Code to make it faster.
+
 ## Contributing
+
 Contributions are welcome :smile:
+
 ### Pull requests
+
 Just a few guidelines:
 * Write clean code with appropriate comments and add suitable error handling.
 * Test the application and make sure no bugs/ issues come up.
 * Open a pull request and I will be happy to acknowledge your contribution after some checking from my side.
+
 ### Issues
+
 If you find any bugs/issues, raise an issue.
 
 
