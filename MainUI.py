@@ -44,9 +44,9 @@ class MainUI(Tk):
             frame = F(self.container, self)
             frame.grid(row=0, column=0, sticky="nsew")
             self.frameslist[F] = frame
-        # Show the first fram ie.. the homepage
+        # Show the first frame ie.. the homepage
         self.show_frame(HomePage)
-
+        self.title("AI Sudoku")
     '''This function is called when the user presses the next button in the Home Page.
     As soon as the path to the image is obtained, this function initializes an object of 
     BoardExtractor, calls it's functions to get a 2D array of the board cell images, then 
@@ -150,6 +150,7 @@ class HomePage(Frame):
         self.controller.frameslist[StagesFrame].setselectedimgpath()
         self.controller.get_and_set_board()
         self.controller.show_frame(StagesFrame)
+        self.controller.title("Stages")
 
     # A function to open a link in a web browser
     def callback(self, url):
@@ -251,10 +252,12 @@ class StagesFrame(Frame):
     '''Go back to Home function. This loads the first frame'''
     def homefunc(self):
         self.controller.show_frame(HomePage)
+        self.controller.title("AI Sudoku")
 
     '''Skip and go to the Sudoku frame'''
     def skipfunc(self):
         self.controller.show_frame(SudokuUI)
+        self.controller.title("Sudoku Recognized!")
 
     '''Back function'''
     def back(self):
@@ -262,6 +265,7 @@ class StagesFrame(Frame):
         #first frame
         if self.currentstage == 1:
             self.controller.show_frame(HomePage)
+            self.controller.title("AI Sudoku")
             return
         self.currentstage -= 1
         self.stagelabel['text'] = self.stagesdict[self.currentstage]
@@ -280,6 +284,7 @@ class StagesFrame(Frame):
         # Check if the user is in the last stage
         if self.currentstage == self.numberofstages:
             self.controller.show_frame(SudokuUI)
+            self.controller.title("Sudoku Recognized")
             return
         self.currentstage += 1
         self.stagelabel['text'] = self.stagesdict[self.currentstage]
@@ -304,7 +309,7 @@ class SudokuUI(Frame):
         self.solutionrevealed = False
         self.row, self.col = -1, -1
         self.solutionrevealed = False
-        self.controller.title("Sudoku Recognized")
+        self.controller.title("Sudoku Recognized!")
         self.toplabel = Label(self,
                               text="Click on any cell to enter or change any wrong entries.\nEnter . to empty the cell or a number to fill it",
                               font=("Consolas 12"), relief=GROOVE, bg="lightblue")
@@ -347,10 +352,12 @@ class SudokuUI(Frame):
             self.toplabel['text'] = "Click on any cell to enter or change any wrong entries.\nEnter . to empty the cell or a number to fill it"
         else:
             self.controller.show_frame(StagesFrame)
+            self.controller.title("Stages")
 
     '''This function takes the user back to the Home Page'''
     def gohome(self):
         self.controller.show_frame(HomePage)
+        self.controller.title("AI Sudoku")
 
 
     '''Draws grid divided with blue lines into 3x3 squares'''
