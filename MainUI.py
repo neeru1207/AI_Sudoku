@@ -75,6 +75,7 @@ class MainUI(Tk):
         self.solutiongrid = None
         solverobj = Solver()
         tmp = deepcopy(self.board)
+        #solverobj.print_board(tmp)
         if not solverobj.checkvalidpuzzle(tmp):
             messagebox.showerror("Invalid Puzzle", "The puzzle board is invalid, please rectify the wrong entries and try again")
             return False
@@ -454,6 +455,7 @@ class SudokuUI(Frame):
      the solution grid and disables the reveal solution button'''
     def reveal_solution(self):
         self.__draw_grid()
+        self.controller.board = deepcopy(self.game.puzzle)
         tmpbool = self.controller.getsolngrid()
         if not tmpbool:
             return

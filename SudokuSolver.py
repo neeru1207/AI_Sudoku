@@ -5,6 +5,8 @@ class Solver:
         for row in range(9):
             has = set()
             for col in range(9):
+                if arr[row][col] == 0:
+                    continue
                 if arr[row][col] in has:
                     return False
                 has.add(arr[row][col])
@@ -12,6 +14,8 @@ class Solver:
         for col in range(9):
             has = set()
             for row in range(9):
+                if arr[row][col] == 0:
+                    continue
                 if arr[row][col] in has:
                     return False
                 has.add(arr[row][col])
@@ -20,9 +24,11 @@ class Solver:
             has = set()
             for row in range(3):
                 for col in range(3):
+                    if arr[pointrow+row][pointcol+col] == 0:
+                        continue
                     if arr[pointrow+row][pointcol+col] in has:
                         return False
-                    has.add(arr[pointrow+row][pointrow+col])
+                    has.add(arr[pointrow+row][pointcol+col])
         return True
 
     def find_empty_location(self, arr, l):
@@ -31,8 +37,8 @@ class Solver:
                 if arr[row][col] == 0:
                     l[0] = row
                     l[1] = col
-                    return True
-        return False
+                    return [l, True]
+        return [l, False]
 
     def check_location_is_safe(self, arr, row, col, num):
 
@@ -61,8 +67,10 @@ class Solver:
     def solve_sudoku(self, arr):
         l = [0, 0]
         # If there is no unassigned location, we are done
-        if not self.find_empty_location(arr, l):
+        x = self.find_empty_location(arr, l)
+        if not x[1]:
             return True
+        l = x[0]
         row = l[0]
         col = l[1]
 
@@ -76,3 +84,13 @@ class Solver:
                 # If Fail, then assign 0 and try the next number
                 arr[row][col] = 0
         return False
+    
+    def print_board(self, arr):
+        for i in range(9):
+            for j in range(9):
+                if arr[i][j]==0:
+                    print("_", end=" ")
+                else:
+                    print(arr[i][j], end=" ")
+            print("")
+        
