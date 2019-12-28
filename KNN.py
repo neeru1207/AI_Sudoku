@@ -7,14 +7,15 @@ from sklearn.metrics import classification_report
 from sklearn.neighbors import KNeighborsClassifier
 import pickle
 
+k = 3
 class KNN:
 
     def __init__(self):
         self.mnist = datasets.fetch_openml('mnist_784', data_home='mnist_dataset/')
-        self.data, self.target = mnist.data, mnist.target
+        self.data, self.target = self.mnist.data, self.mnist.target
         # Make an array of indices the size of MNIST to use for making the data sets.
         # This array is in random order, so we can use it to scramble up the MNIST data
-        self.indx = np.random.choice(len(target), 70000, replace=False)
+        self.indx = np.random.choice(len(self.target), 70000, replace=False)
         # Initialising the classifier
         self.classifier = KNeighborsClassifier(n_neighbors=k)
 
@@ -43,7 +44,7 @@ class KNN:
         test_target1 = np.array(test_target)
         self.classifier.fit(fifty_x, fifty_y)
 
-        y_pred = classifier.predict(test_img1)
-        pickle.dump(classifier, open('knn.sav', 'wb'))
+        y_pred = self.classifier.predict(test_img1)
+        pickle.dump(self.classifier, open('knn.sav', 'wb'))
         print(classification_report(test_target1, y_pred))
         print("KNN Classifier model saved as knn.sav!")
