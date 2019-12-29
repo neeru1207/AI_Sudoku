@@ -9,12 +9,12 @@ import pickle
 
 class KNN:
 
-    def __init__(self):
+    def __init__(self, k):
         self.mnist = datasets.fetch_openml('mnist_784', data_home='mnist_dataset/')
-        self.data, self.target = mnist.data, mnist.target
+        self.data, self.target = self.mnist.data, self.mnist.target
         # Make an array of indices the size of MNIST to use for making the data sets.
         # This array is in random order, so we can use it to scramble up the MNIST data
-        self.indx = np.random.choice(len(target), 70000, replace=False)
+        self.indx = np.random.choice(len(self.target), 70000, replace=False)
         # Initialising the classifier
         self.classifier = KNeighborsClassifier(n_neighbors=k)
 
@@ -31,7 +31,7 @@ class KNN:
 
         return train_img, train_target
 
-    def skl_knn(self, k):
+    def skl_knn(self):
         """k: number of neighbors to use in classification
         test_data: the data/targets used to test the classifier
         stored_data: the data/targets used to classify the test_data
@@ -43,7 +43,7 @@ class KNN:
         test_target1 = np.array(test_target)
         self.classifier.fit(fifty_x, fifty_y)
 
-        y_pred = classifier.predict(test_img1)
-        pickle.dump(classifier, open('knn.sav', 'wb'))
+        y_pred = self.classifier.predict(test_img1)
+        pickle.dump(self.classifier, open('knn.sav', 'wb'))
         print(classification_report(test_target1, y_pred))
         print("KNN Classifier model saved as knn.sav!")
