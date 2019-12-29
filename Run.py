@@ -15,8 +15,8 @@ if modeltype == "KNN":
         print("Saved KNN Classifier not found....")
         print("Downloading MNIST Data, training KNN classifier and saving as knn.sav......")
         print("Kindly wait for a few minutes............")
-        knnobj = KNN()
-        knnobj.skl_knn(3)
+        knnobj = KNN(3)
+        knnobj.skl_knn()
 else:
     if os.path.exists("cnn.hdf5"):
         pass
