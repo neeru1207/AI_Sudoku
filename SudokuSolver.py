@@ -60,9 +60,9 @@ class Solver:
                     if arr[i + row][j + col] == num:
                         return True
             return False
-        return not used_in_row(arr, row, num) \
-               and not used_in_col(arr, col, num) and \
-               not used_in_box(arr, row - row % 3, col - col % 3, num)
+        return not any(used_in_row(arr, row, num),
+                       used_in_col(arr, col, num),
+                       used_in_box(arr, row - row % 3, col - col % 3, num))
 
     def solve_sudoku(self, arr):
         l = [0, 0]
