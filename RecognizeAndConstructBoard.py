@@ -47,7 +47,7 @@ class ConstructGrid:
                     cv2.imwrite("StagesImages/14.jpg", tmp)
                     self.imagewritten = True
                 pred = self.recognizer.make_prediction(str("CleanedBoardCells/cell"+str(i)+str(j)+".jpg"))
-                self.finalgrid[i][j] = pred
+                self.finalgrid[i][j] = int(pred)
         return self.finalgrid
 
 
