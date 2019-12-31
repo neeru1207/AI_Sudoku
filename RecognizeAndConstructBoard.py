@@ -7,7 +7,6 @@ comparing with some threshold. Some empty cells might be missed due to remaining
 import cv2
 import numpy as np
 from Recognizer import DigitRecognizer
-import os
 
 class ConstructGrid:
 
@@ -38,11 +37,6 @@ class ConstructGrid:
                     self.finalgrid[i][j] = 0
                     continue
                 if not self.imagewritten:
-                    try:
-                        os.remove("StagesImages/13.jpg")
-                        os.remove("StagesImages/14.jpg")
-                    except:
-                        pass
                     cv2.imwrite("StagesImages/13.jpg", self.cellarray[i][j])
                     cv2.imwrite("StagesImages/14.jpg", tmp)
                     self.imagewritten = True

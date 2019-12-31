@@ -4,7 +4,6 @@ by blackfilling the outer layers and centering the bounding box of the number'''
 import numpy as np
 import cv2
 import tensorflow as tf
-import os
 import pickle
 
 class DigitRecognizer:
@@ -68,10 +67,6 @@ class DigitRecognizer:
             cv2.floodFill(img, None, (rows - 2, i), 1)
             cv2.floodFill(img, None, (i, rows - 2), 1)
         if self.writeimg:
-            try:
-                os.remove("StagesImages/14.jpg")
-            except:
-                pass
             cv2.imwrite("StagesImages/14.jpg", img)
         #Finding the bounding box of the number in the cell
         rowtop = None
@@ -110,10 +105,6 @@ class DigitRecognizer:
                 newimg[y, x] = img[rowtop + y - startatY, colleft + x - startatX]
 
         if self.writeimg:
-            try:
-                os.remove("StagesImages/15.jpg")
-            except:
-                pass
             cv2.imwrite("StagesImages/15.jpg", newimg)
             self.writeimg = False
         return newimg

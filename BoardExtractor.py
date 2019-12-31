@@ -2,7 +2,6 @@
 grud, crops the grid, corrects perspective, writes all these stages to StagesImages folder and
 finally slices the grid into 91 cells and returns the 2D array of 81 cell images'''
 import cv2
-import os
 import numpy as np
 
 class BoardExtractor:
@@ -20,36 +19,20 @@ class BoardExtractor:
 
         #Applying Gaussian Blur to smooth out the noise
         gray = cv2.GaussianBlur(gray, (11, 11), 0)
-        try:
-            os.remove("StagesImages/1.jpg")
-        except:
-            pass
         cv2.imwrite("StagesImages/1.jpg", gray)
 
         # Applying thresholding using adaptive Gaussian|Mean thresholding
         gray = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C | cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 5, 2)
-        try:
-            os.remove("StagesImages/2.jpg")
-        except:
-            pass
         cv2.imwrite("StagesImages/2.jpg", gray)
 
         #Inverting the image
         gray = cv2.bitwise_not(gray)
-        try:
-            os.remove("StagesImages/3.jpg")
-        except:
-            pass
         cv2.imwrite("StagesImages/3.jpg", gray)
 
         #Dilating the image to fill up the "cracks" in lines
         kernel = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], np.uint8)
         gray = cv2.dilate(gray, kernel)
         self.image = gray
-        try:
-            os.remove("StagesImages/4.jpg")
-        except:
-            pass
         cv2.imwrite("StagesImages/4.jpg", gray)
 
     '''This function finds the grid (the biggest blob), uses Hough transform to find lines,
@@ -62,10 +45,6 @@ class BoardExtractor:
         maxi = -1
         maxpt = None
         value = 10
-        try:
-            os.remove("StagesImages/5.jpg")
-        except:
-            pass
         height, width = np.shape(outerbox)
         for y in range(height):
             row = self.image[y]
@@ -88,19 +67,12 @@ class BoardExtractor:
             for x in range(width):
                 if row[x] == 64 and x != maxpt[0] and y != maxpt[1]:
                     cv2.floodFill(outerbox, None, (x, y), 0)
-        try:
-            os.remove("StagesImages/6.jpg")
-        except:
-            pass
+
         cv2.imwrite("StagesImages/6.jpg", outerbox)
 
         # Eroding it a bit to restore the image
         kernel = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], np.uint8)
         outerbox = cv2.erode(outerbox, kernel)
-        try:
-            os.remove("StagesImages/7.jpg")
-        except:
-            pass
         cv2.imwrite("StagesImages/7.jpg", outerbox)
 
         # Using "Hough Transform" to detect lines
@@ -121,10 +93,7 @@ class BoardExtractor:
         tmpimg = np.copy(outerbox)
         for i in range(len(lines)):
             tmpimp = drawLine(lines[i], tmpimg)
-        try:
-            os.remove("StagesImages/8.jpg")
-        except:
-            pass
+
         cv2.imwrite("StagesImages/8.jpg", tmpimg)
 
         '''This function takes a list of lines and an image, fuses related a.k.a close
@@ -226,10 +195,7 @@ class BoardExtractor:
         tmpimg = drawLine(rightedge, tmpimg)
         tmpimg = drawLine(topedge, tmpimg)
         tmpimg = drawLine(bottomedge, tmpimg)
-        try:
-            os.remove("StagesImages/9.jpg")
-        except:
-            pass
+
         cv2.imwrite("StagesImages/9.jpg", tmpimg)
 
         leftedge = leftedge[0]
@@ -328,10 +294,7 @@ class BoardExtractor:
         cv2.circle(tmppp, (int(ptTopRight[0]), int(ptTopRight[1])), 5, 0, -1)
         cv2.circle(tmppp, (int(ptBottomLeft[0]), int(ptBottomLeft[1])), 5, 0, -1)
         cv2.circle(tmppp, (int(ptBottomRight[0]), int(ptBottomRight[1])), 5, 0, -1)
-        try:
-            os.remove("StagesImages/10.jpg")
-        except:
-            pass
+
         cv2.imwrite("StagesImages/10.jpg", tmppp)
 
         #Finding the maximum length side
@@ -356,10 +319,7 @@ class BoardExtractor:
         src = np.array(src).astype(np.float32)
         dst = np.array(dst).astype(np.float32)
         self.extractedgrid = cv2.warpPerspective(self.originalimage, cv2.getPerspectiveTransform(src, dst), (maxlength, maxlength))
-        try:
-            os.remove("StagesImages/11.jpg")
-        except:
-            pass
+
         cv2.imwrite("StagesImages/11.jpg", self.extractedgrid)
         # Resizing the grid to a 252X252 size because MNIST has 28X28 images
         self.extractedgrid = cv2.resize(self.extractedgrid, (252, 252))
@@ -375,10 +335,7 @@ class BoardExtractor:
 
         #Adaptive thresholding the cropped grid and inverting it
         grid = cv2.bitwise_not(cv2.adaptiveThreshold(grid, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 101, 1))
-        try:
-            os.remove("StagesImages/12.jpg")
-        except:
-            pass
+
         cv2.imwrite("StagesImages/12.jpg", grid)
         #Creating a vector of size 81 of all the cell images
         tempgrid = []
@@ -396,12 +353,7 @@ class BoardExtractor:
         for i in range(9):
             for j in range(9):
                 finalgrid[i][j] = np.array(finalgrid[i][j])
-        try:
-            for i in range(9):
-                for j in range(9):
-                    os.remove("BoardCells/cell"+str(i)+str(j)+".jpg")
-        except:
-            pass
+
         for i in range(9):
             for j in range(9):
                 cv2.imwrite(str("BoardCells/cell"+str(i)+str(j)+".jpg"), finalgrid[i][j])
