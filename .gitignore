@@ -2,3 +2,4 @@
 mnist_dataset/
 CleanedBoardCells/
 BoardCells/
+__pycache__
