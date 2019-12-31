@@ -266,13 +266,28 @@ class StagesFrame(Frame):
 
     '''Back function'''
     def back(self):
+        self._change_stage(-1)
+
+    '''Next function that takes the user to the next stage or the next frame if the user is already
+    in the last stage'''
+    def next(self):
+        self._change_stage(1)
+
+    '''Changes the frame either backward or forward depending on value
+    of direction, 1 for forward and -1 for backward'''
+    def _change_stage(self, direction):
         #If we are at the initial stage, then pressing back takes the user back to the
         #first frame
-        if self.currentstage == 1:
+        if self.currentstage == 1 and direction == -1:
             self.controller.show_frame(HomePage)
             self.controller.title("AI Sudoku")
             return
-        self.currentstage -= 1
+        # Check if the user is in the last stage and going forward
+        if self.currentstage == self.numberofstages and direction == 1:
+            self.controller.show_frame(SudokuUI)
+            self.controller.title("Sudoku Recognized")
+            return
+        self.currentstage += direction
         self.stagelabel['text'] = self.stagesdict[self.currentstage]
         #If we have reached the first frame, then load the initial image
         if self.currentstage == 1:
@@ -283,20 +298,6 @@ class StagesFrame(Frame):
         self.imgpanel.configure(image=img)
         self.img = img
 
-    '''Next function that takes the user to the next stage or the next frame if the user is already
-    in the last stage'''
-    def next(self):
-        # Check if the user is in the last stage
-        if self.currentstage == self.numberofstages:
-            self.controller.show_frame(SudokuUI)
-            self.controller.title("Sudoku Recognized")
-            return
-        self.currentstage += 1
-        self.stagelabel['text'] = self.stagesdict[self.currentstage]
-        currstageimgpath = "StagesImages/" + str(self.currentstage - 1) + ".jpg"
-        img = ImageTk.PhotoImage(Image.open(currstageimgpath).resize((490, 490), Image.ANTIALIAS))
-        self.imgpanel.configure(image=img)
-        self.img = img
 
 '''The Third Frame that shows the Recognized Sudoku grid. Since there might be errors in the 
 recognition, the user can change entries in the grid and then view the solution.
