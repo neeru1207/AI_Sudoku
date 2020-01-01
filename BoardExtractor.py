@@ -1,6 +1,6 @@
 '''This class takes an image path as input, performs preprocessing, identifies the
-grud, crops the grid, corrects perspective, writes all these stages to StagesImages folder and
-finally slices the grid into 91 cells and returns the 2D array of 81 cell images'''
+grid, crops the grid, corrects perspective, writes all these stages to StagesImages folder and
+finally slices the grid into 81 cells and returns the 2D array of 81 cell images'''
 import cv2
 import os
 import numpy as np
@@ -54,7 +54,7 @@ class BoardExtractor:
 
     '''This function finds the grid (the biggest blob), uses Hough transform to find lines,
     fuses related lines, finds the border lines of the grid, warps the board to correct
-    perspective and stoes the board in self.extractedgrid'''
+    perspective and stores the board in self.extractedgrid'''
     def detect_and_crop_grid(self):
 
         #Using flood filling to find the biggest blob in the picture
