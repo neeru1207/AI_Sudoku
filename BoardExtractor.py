@@ -1,6 +1,6 @@
 '''This class takes an image path as input, performs preprocessing, identifies the
-grud, crops the grid, corrects perspective, writes all these stages to StagesImages folder and
-finally slices the grid into 91 cells and returns the 2D array of 81 cell images'''
+grid, crops the grid, corrects perspective, writes all these stages to StagesImages folder and
+finally slices the grid into 81 cells and returns the 2D array of 81 cell images'''
 import cv2
 import os
 import numpy as np
