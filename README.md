@@ -83,6 +83,7 @@ GUI Smart Sudoku Solver that tries to extract a sudoku puzzle from a photo and s
 * Finally click on **reveal solution** to display the solution.
 
     ![](https://github.com/neeru1207/AI_Sudoku/blob/master/Screenshots/19.png)
+    
 
 ## Working
 
