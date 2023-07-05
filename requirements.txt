@@ -2,7 +2,7 @@ absl-py==0.8.0
 astor==0.8.0
 gast==0.3.2
 google-pasta==0.1.7
-grpcio==1.24.0
+grpcio==1.53.0
 h5py==2.10.0
 joblib==0.13.2
 Keras-Applications==1.0.8
